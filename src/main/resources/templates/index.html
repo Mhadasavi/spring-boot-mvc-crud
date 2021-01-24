@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="utf-8"/>
 <title>Product Manager</title>
 </head>
 <body>
+<div align="right">
+	<!--<h3 th:inline="text">Welcome[[${#httpServletRequest.remoteUser}]]</h3>
+	  <form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout"/>
+	</form>-->
+</div>
+<!-- credentials = upkar,upkar@admin -->
+<div align="right">
+	 Welcome <b><span sec:authentication="name">Username</span></b>
+		    &nbsp;
+		    <i><span sec:authentication="principal.authorities">Roles</span></i>
+		<form th:action="@{/logout}" method="post">
+		    <input type="submit" value="Logout" />
+		</form>
+</div>
 <div align="center">
     <h1>Product List</h1>
-    <a href="/new">Create New Product</a>
+    	<div sec:authorize="isAuthenticated()">
+		   
+			<a href="/new">Create New Product</a>
+		</div>
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
